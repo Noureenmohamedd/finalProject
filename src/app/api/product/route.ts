@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     const apiBase = process.env.ECOM_API_URL ?? "https://ecommerce.routemisr.com/api/v1";

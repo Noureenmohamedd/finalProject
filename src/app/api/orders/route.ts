@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import getMyToken from '@/utilities/token';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';

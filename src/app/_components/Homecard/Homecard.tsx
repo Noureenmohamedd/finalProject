@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Product } from '@/types/product.t';
 import Addbtn from '../AddbtnCard/Addbtn';
 import WishlistButton from '../WishlistButton/WishlistButton';
+import Image from 'next/image';
 const Homecard = ({product} : {product: Product}) => {
   return (
     <div   className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5  p-3 ">
@@ -21,7 +22,7 @@ const Homecard = ({product} : {product: Product}) => {
       <CardHeader className="p-0">
         
 
-        <img src={product.imageCover} alt=""/> 
+        <Image src={product.imageCover} alt={product.title} width={200} height={200}/> 
       
       </CardHeader>
       <CardContent className="p-0">

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import Link from 'next/link';
+import Image from 'next/image';
 import { Brand } from '@/types/brand.t';
 
 const Brandcard = ({product} :{product: Brand}) => {
@@ -17,7 +18,7 @@ const Brandcard = ({product} :{product: Brand}) => {
       <CardHeader className="p-0">
         
 
-        <img className="w-full h-48 object-contain" src={product.image} alt=""/> 
+        <Image className="w-full h-48 object-contain" src={product.image} alt={product.name} width={200} height={192}/> 
       
       </CardHeader>
       <CardContent className="p-0 flex-grow">

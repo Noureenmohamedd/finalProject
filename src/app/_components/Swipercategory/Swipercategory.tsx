@@ -3,6 +3,7 @@ import React from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Pagination } from 'swiper/modules';
+import Image from 'next/image';
 
 const Swipercategory = ({ categories }) => {
   return (  
@@ -22,10 +23,12 @@ const Swipercategory = ({ categories }) => {
       >
         {categories.map((category, idx) => (
           <SwiperSlide key={idx}>
-            <img 
+            <Image 
               src={category.image} 
               alt={category.name || 'category'} 
               className="w-full h-[200px] object-cover rounded-lg" 
+              width={200}
+              height={200}
             />
             <p className="text-center mt-2 font-semibold">{category.name}</p>
           </SwiperSlide>

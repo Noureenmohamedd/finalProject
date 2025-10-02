@@ -22,7 +22,7 @@ const Productcard = ({product}: {product: Product}) => {
       <CardHeader className="p-0">
         
 
-        <img src={product.imageCover} alt=""/> 
+        <Image src={product.imageCover} alt={product.title} width={200} height={200}/> 
       
       </CardHeader>
       <CardContent className="p-0">

@@ -2,6 +2,7 @@ import React from 'react'
 import getSingleProduct from '../../../apis/singleProuct'
 import Addbtn from '@/app/_components/AddbtnCard/Addbtn'
 import WishlistButton from '@/app/_components/WishlistButton/WishlistButton'
+import Image from 'next/image'
 
 const Productdetails = async ( {params}: {params : {id: string }}) => {
   const {id} =await params 
@@ -10,7 +11,7 @@ const Productdetails = async ( {params}: {params : {id: string }}) => {
   return (
     <div className='w-full px-5 md:w-[80%] md:px-0 mx-auto my-10 flex items-center flex-col md:flex-row'>
       <div className='w-full md:w-1/3'>
-      <img src={data.imageCover} className="w-full" alt="" />
+      <Image src={data.imageCover} className="w-full" alt={data.title} width={400} height={400} />
 
       </div>
 

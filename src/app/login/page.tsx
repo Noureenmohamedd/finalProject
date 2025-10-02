@@ -15,7 +15,6 @@ import { LoginSchemaType } from '@/schema/login.s'
 import { signIn } from "next-auth/react"
 
 const LoginPage = () => {
-  const router = useRouter()
 
   const form = useForm<LoginSchemaType>({
     defaultValues: {
