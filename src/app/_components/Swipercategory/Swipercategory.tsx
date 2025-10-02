@@ -5,7 +5,17 @@ import 'swiper/css';
 import { Pagination } from 'swiper/modules';
 import Image from 'next/image';
 
-const Swipercategory = ({ categories }) => {
+interface Category {
+  id: string;
+  name: string;
+  image: string;
+}
+
+interface SwipercategoryProps {
+  categories: Category[];
+}
+
+const Swipercategory: React.FC<SwipercategoryProps> = ({ categories }) => {
   return (  
     <div>
       <Swiper

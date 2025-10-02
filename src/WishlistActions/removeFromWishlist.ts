@@ -14,7 +14,7 @@ export default async function removeFromWishlist(productId: string) {
     `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
     {
       headers: {
-        token: token
+        token: token as string 
       }
     }
   );

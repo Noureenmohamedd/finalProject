@@ -14,7 +14,7 @@ export default async function clearUserCart() {
     "https://ecommerce.routemisr.com/api/v1/cart",
     {
       headers: {
-        token: token
+        token: token as string 
       }
     }
   );

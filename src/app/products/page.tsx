@@ -1,13 +1,12 @@
-import getAllProducts from "@/apis/allProducts";
-
 import React from "react";
+import getAllProducts from "@/apis/allProducts";
+import Productcard from "../_components/Productcard/Productcard";
+import type { Product } from "../../types/product.t";
 
-import Productcard from '../_components/Productcard/Productcard';
 
-
-const Product = async () => {
+const Product: React.FC = async () => {
  
-  const data = await getAllProducts()
+  const data: Product[] = await getAllProducts()
 
   return (
    <section  className="px-5 md:px-0 my-10 w-full md:w-[80%] mx-auto" >

@@ -14,7 +14,7 @@ export default async function removeCartItem(productId: string) {
     `https://ecommerce.routemisr.com/api/v1/cart/${productId}`,
     {
       headers: {
-        token: token
+        token: token as string 
       }
     }
   );

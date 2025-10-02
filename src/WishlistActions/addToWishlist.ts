@@ -19,7 +19,7 @@ export default async function addToWishlist(productId: string) {
     values,
     {
       headers: {
-        token: token
+        token: token as string 
       }
     }
   );

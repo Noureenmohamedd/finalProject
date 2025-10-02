@@ -6,7 +6,17 @@ import axios from "axios";
  
  
  
- export default async function cashPaymentAction (id :string, values :object ){
+interface ShippingAddress {
+  details: string;
+  phone: string;
+  city: string;
+}
+
+interface PaymentValues {
+  shippingAddress: ShippingAddress;
+}
+
+export default async function cashPaymentAction (id: string, values: PaymentValues ){
 
     const token = await getMyToken()
     if(!token){
