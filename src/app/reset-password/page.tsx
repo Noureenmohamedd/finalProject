@@ -57,9 +57,10 @@ const ResetPasswordPage = () => {
         router.push('/login')
       }, 1500)
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Reset password error:", error)
-      toast.error(error?.response?.data?.message || "Failed to reset password", {
+      const axiosError = error as { response?: { data?: { message?: string } } };
+      toast.error(axiosError?.response?.data?.message || "Failed to reset password", {
         position: 'top-center',
         duration: 2000
       })

@@ -36,16 +36,17 @@ const OrdersPage = () => {
         
         const ordersData = response.data?.data || response.data || [];
         setOrders(Array.isArray(ordersData) ? ordersData : []);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error('Error fetching orders:', error);
-        if (error?.response?.status === 401) {
+        const axiosError = error as { response?: { status?: number; data?: { error?: string } } };
+        if (axiosError?.response?.status === 401) {
           toast.error('Please login to view your orders', {
             position: 'top-center',
             duration: 2000
           });
           router.push('/login');
         } else {
-          toast.error(error?.response?.data?.error || 'Failed to load orders', {
+          toast.error(axiosError?.response?.data?.error || 'Failed to load orders', {
             position: 'top-center',
             duration: 2000
           });
@@ -132,7 +133,7 @@ const OrdersPage = () => {
         <div className="bg-gray-50 rounded-lg p-12">
           <div className="text-6xl mb-4">📦</div>
           <h2 className="text-2xl font-bold text-gray-700 mb-4">No Orders Yet</h2>
-          <p className="text-gray-500 mb-6">You haven't placed any orders yet. Start shopping to see your orders here!</p>
+          <p className="text-gray-500 mb-6">You haven&apos;t placed any orders yet. Start shopping to see your orders here!</p>
           <Link href="/products">
             <Button className="bg-green-700 hover:bg-green-800 text-white px-8 py-3">
               Start Shopping

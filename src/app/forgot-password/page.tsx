@@ -38,9 +38,10 @@ const ForgotPasswordPage = () => {
     
       router.push('/verify-code')
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Email verification error:", error)
-      toast.error(error?.response?.data?.message || "Failed to send verification code", {
+      const axiosError = error as { response?: { data?: { message?: string } } };
+      toast.error(axiosError?.response?.data?.message || "Failed to send verification code", {
         position: 'top-center',
         duration: 2000
       })
@@ -53,7 +54,7 @@ const ForgotPasswordPage = () => {
         Forgot Password
       </h1>
       <p className='text-center text-gray-600 mt-2 mb-6'>
-        Enter your email address and we'll send you a verification code
+        Enter your email address and we&apos;ll send you a verification code
       </p>
 
       <FormProvider {...form}>

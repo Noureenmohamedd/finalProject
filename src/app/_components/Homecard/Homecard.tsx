@@ -1,7 +1,6 @@
 import React from 'react'
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { Product } from '@/types/product.t';
 import Addbtn from '../AddbtnCard/Addbtn';
 import WishlistButton from '../WishlistButton/WishlistButton';

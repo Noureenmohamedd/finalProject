@@ -1,6 +1,5 @@
 import React from 'react'
 import getSingleProduct from '../../../apis/singleProuct'
-import { Button } from "@/components/ui/button"
 import Addbtn from '@/app/_components/AddbtnCard/Addbtn'
 import WishlistButton from '@/app/_components/WishlistButton/WishlistButton'
 

@@ -1,5 +1,5 @@
 "use client"
-import React, { BaseSyntheticEvent } from 'react'
+import React from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'

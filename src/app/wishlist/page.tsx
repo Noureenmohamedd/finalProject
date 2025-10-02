@@ -32,7 +32,7 @@ const WishlistPage = () => {
       } else {
         toast.error("Failed to add to cart", {duration: 1000, position: 'top-center'})
       }
-    } catch (error) {
+    } catch {
       toast.error("Failed to add to cart", {duration: 1000, position: 'top-center'})
     }
   }

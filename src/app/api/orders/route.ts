@@ -3,7 +3,7 @@ import getMyToken from '@/utilities/token';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // Get the user token
     const token = await getMyToken();
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Decode token to get user ID
-    const decoded: any = jwtDecode(token);
+    const decoded = jwtDecode(token) as { id: string };
     const userId = decoded.id;
 
     if (!userId) {
@@ -32,13 +32,14 @@ export async function GET(request: NextRequest) {
     );
 
     return NextResponse.json(response.data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Get orders error:', error);
     
-    if (error.response) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response: { data: { message?: string }; status: number } };
       return NextResponse.json(
-        { error: error.response.data.message || 'Failed to fetch orders' },
-        { status: error.response.status }
+        { error: axiosError.response.data.message || 'Failed to fetch orders' },
+        { status: axiosError.response.status }
       );
     }
 

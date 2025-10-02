@@ -8,7 +8,7 @@ import { cartContext } from "@/context/CartContext";
 
 
 const Navbar = () => {
-  const {data:session , status}=  useSession()
+  const { status } = useSession()
   const { numOfCart } = useContext(cartContext)
 
   return (

@@ -20,13 +20,14 @@ export async function POST(request: NextRequest) {
     );
 
     return NextResponse.json(response.data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Forgot password error:', error);
     
-    if (error.response) {
+    if (error && typeof error === 'object' && 'response' in error) {
+      const axiosError = error as { response: { data: { message?: string }; status: number } };
       return NextResponse.json(
-        { error: error.response.data.message || 'Failed to send reset email' },
-        { status: error.response.status }
+        { error: axiosError.response.data.message || 'Failed to send reset email' },
+        { status: axiosError.response.status }
       );
     }
 

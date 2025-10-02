@@ -50,9 +50,10 @@ const VerifyCodePage = () => {
       // Redirect to reset password page
       router.push('/reset-password')
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Code verification error:", error)
-      toast.error(error?.response?.data?.message || "Invalid verification code", {
+      const axiosError = error as { response?: { data?: { message?: string } } };
+      toast.error(axiosError?.response?.data?.message || "Invalid verification code", {
         position: 'top-center',
         duration: 2000
       })
@@ -71,9 +72,10 @@ const VerifyCodePage = () => {
         duration: 2000
       })
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Resend code error:", error)
-      toast.error(error?.response?.data?.message || "Failed to resend verification code", {
+      const axiosError = error as { response?: { data?: { message?: string } } };
+      toast.error(axiosError?.response?.data?.message || "Failed to resend verification code", {
         position: 'top-center',
         duration: 2000
       })

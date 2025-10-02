@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
           const data = await res.json();
 
           if (data?.message === "success" && data?.token) {
-            const decoded: any = jwtDecode(data.token);
+            const decoded = jwtDecode(data.token) as { id: string };
             const userId = decoded?.id;
 
             return {

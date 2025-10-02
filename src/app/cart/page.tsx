@@ -2,16 +2,14 @@
 "use client"
 import React, { useContext } from 'react'
 import { cartContext } from '../../context/CartContext';
-import Loading from "../loading"
 import { Button } from "@/components/ui/button"
 import { ProductCart } from '../../types/cart.t';
 import Image from "next/image";
 import Link from 'next/link';
 
-const page =  () => {
+const CartPage =  () => {
 
-  const { isloading,
-          product, 
+  const { product, 
           totalPrice,
           updateQuantity,
           removeItem,
@@ -105,4 +103,4 @@ const page =  () => {
   )
 }
 
-export default page
+export default CartPage

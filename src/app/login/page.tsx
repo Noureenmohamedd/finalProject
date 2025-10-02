@@ -14,7 +14,7 @@ import Link from 'next/link'
 import { LoginSchemaType } from '@/schema/login.s'
 import { signIn } from "next-auth/react"
 
-const Page = () => {
+const LoginPage = () => {
   const router = useRouter()
 
   const form = useForm<LoginSchemaType>({
@@ -53,9 +53,10 @@ const Page = () => {
         })
       }
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Login error:", error)
-      toast.error(error?.response?.data?.message || "Login failed", {
+      const axiosError = error as { response?: { data?: { message?: string } } };
+      toast.error(axiosError?.response?.data?.message || "Login failed", {
         position: 'top-center',
         duration: 1000
       })
@@ -110,7 +111,7 @@ const Page = () => {
               Forgot Password?
             </Link>
             <p>
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link className="text-green-700 underline" href="/register">Register</Link>
             </p>
           </div>
@@ -120,4 +121,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default LoginPage

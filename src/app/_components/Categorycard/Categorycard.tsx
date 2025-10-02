@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import Link from 'next/link';
 import { Category } from '@/types/category.t';
 

@@ -4,7 +4,7 @@ import updateCartQuantity from '@/CartActions/updateCartQuantity'
 import removeCartItem from '@/CartActions/removeCartItem'
 import clearUserCart from '@/CartActions/clearCart'
 import { Cart, ProductCart } from '@/types/cart.t'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { createContext } from 'react'
 
 type CartContextType = {
@@ -17,6 +17,7 @@ type CartContextType = {
   updateQuantity: (productId: string, newCount: number) => void
   removeItem: (productId: string) => void
   clearCart: () => void
+  afterPayment: () => void
 }
 
 export const cartContext = createContext<CartContextType>({
@@ -28,7 +29,8 @@ export const cartContext = createContext<CartContextType>({
   updateCart: () => {},
   updateQuantity: () => {},
   removeItem: () => {},
-  clearCart: () => {}
+  clearCart: () => {},
+  afterPayment: () => {}
 })
 
 const CartContextProvider = ({children} : {children :React.ReactNode}) => {
@@ -39,7 +41,7 @@ const CartContextProvider = ({children} : {children :React.ReactNode}) => {
     const [cartId, setcartId] = useState("")
 
 
-async function getUserCart (){
+const getUserCart = useCallback(async () => {
     setisloading(true)
     
     try {
@@ -70,7 +72,7 @@ async function getUserCart (){
     }
 
 
-   }
+   }, [])
 
   
    const updateCart = () => {
@@ -142,11 +144,11 @@ async function getUserCart (){
      if (newCount !== numOfCart) {
        setnumOfCart(newCount)
      }
-   }, [product])
+   }, [product, numOfCart])
 
    useEffect( function( ) {
     getUserCart()
-   }, [])
+   }, [getUserCart])
 
    function afterPayment(){
     setcartId("")
