@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { Product } from '@/types/product.t';
 import Addbtn from '../AddbtnCard/Addbtn';
 import WishlistButton from '../WishlistButton/WishlistButton';
+import Image from "next/image";
+
 
 const Productcard = ({product}: {product: Product}) => {
   return (
