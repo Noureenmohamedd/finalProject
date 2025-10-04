@@ -1,7 +1,5 @@
 "use server"
 
-
-
 import getMyToken from "@/utilities/token"
 import axios from "axios"
 import { jwtDecode } from "jwt-decode"

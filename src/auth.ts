@@ -1,9 +1,9 @@
-import { NextAuthOptions } from "next-auth";
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
+import type { NextAuthOptions } from "next-auth";
 
 export const authOptions: NextAuthOptions = {
-
   pages: {
     signIn: "/login",
   },
@@ -26,18 +26,14 @@ export const authOptions: NextAuthOptions = {
             }),
           });
 
-          if (!res.ok) {
-            throw new Error("Invalid response from server");
-          }
+          if (!res.ok) throw new Error("Invalid response from server");
 
           const data = await res.json();
 
           if (data?.message === "success" && data?.token) {
-            const decoded = jwtDecode(data.token) as { id: string };
-            const userId = decoded?.id;
-
+            const decoded = jwtDecode<{ id: string }>(data.token);
             return {
-              id: userId || "", 
+              id: decoded?.id || "",
               user: data.user,
               token: data.token,
             };
@@ -46,35 +42,26 @@ export const authOptions: NextAuthOptions = {
           throw new Error(data?.message || "Failed to login");
         } catch (err) {
           console.error("Authorize error:", err);
-          throw new Error("Login failed. Please try again."); 
+          throw new Error("Login failed. Please try again.");
         }
       },
     }),
   ],
 
-
   callbacks: {
-
-   
-      async jwt({ token, user }) {
-
-        if(user){
-          token.user = user?.user
-          token.token = user?.token
-        }
-      return token
-    } ,
-     
-    
-    async session({ session, token }) {
-
-      if(token){
-        session.user = token?.user 
+    async jwt({ token, user }: { token: any; user?: any }) {
+      if (user) {
+        token.user = user?.user;
+        token.token = user?.token;
       }
-      return session
+      return token;
     },
-  },  
-  
-  
 
+    async session({ session, token }: { session: any; token: any }) {
+      if (token) {
+        session.user = token?.user;
+      }
+      return session;
+    },
+  },
 };

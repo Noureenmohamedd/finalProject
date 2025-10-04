@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { loginSchema } from '@/schema/login.s'
 import axios from 'axios'
 import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
+
 import Link from 'next/link'
 import { LoginSchemaType } from '@/schema/login.s'
 import { signIn } from "next-auth/react"
