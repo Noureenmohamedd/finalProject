@@ -1,7 +1,11 @@
-
 import CredentialsProvider from "next-auth/providers/credentials";
 import { jwtDecode } from "jwt-decode";
-import type { NextAuthOptions } from "next-auth";
+import type { NextAuthOptions, Session, User } from "next-auth";
+import type { JWT } from "next-auth/jwt";
+
+interface DecodedToken {
+  id: string;
+}
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -15,7 +19,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email", placeholder: "username@domain" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<User | null> {
         try {
           const res = await fetch(`${process.env.NEXT_PUBLIC_API}/auth/signin`, {
             method: "POST",
@@ -31,35 +35,41 @@ export const authOptions: NextAuthOptions = {
           const data = await res.json();
 
           if (data?.message === "success" && data?.token) {
-            const decoded = jwtDecode<{ id: string }>(data.token);
+            const decoded = jwtDecode<DecodedToken>(data.token);
+
             return {
               id: decoded?.id || "",
-              user: data.user,
+              name: data.user?.name || "",
+              email: data.user?.email || "",
               token: data.token,
-            };
+              user: data.user,
+            } as unknown as User;
           }
 
-          throw new Error(data?.message || "Failed to login");
+          return null;
         } catch (err) {
           console.error("Authorize error:", err);
-          throw new Error("Login failed. Please try again.");
+          return null;
         }
       },
     }),
   ],
 
   callbacks: {
-    async jwt({ token, user }: { token: any; user?: any }) {
+
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
-        token.user = user?.user;
-        token.token = user?.token;
+        // Cast if you’re storing extra fields
+        const u = user as unknown as Record<string, unknown>;
+        token.user = u.user;
+        token.token = u.token;
       }
       return token;
     },
 
-    async session({ session, token }: { session: any; token: any }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (token) {
-        session.user = token?.user;
+        (session.user as Record<string, unknown>) = token.user as Record<string, unknown>;
       }
       return session;
     },

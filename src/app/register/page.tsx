@@ -38,12 +38,18 @@ const Page = () => {
       router.push("/login")
 
     }
-    catch(error) {
-      console.log(error)
-      toast.error(error.response.data.message, {position : 'top-center' , duration: 2000 } )
+   catch (error) {
+  if (axios.isAxiosError(error)) {
+    
+    const message = error.response?.data?.message || 'Something went wrong';
+    toast.error(message, { position: 'top-center', duration: 2000 });
+  } else {
+   
+    console.error(error);
+    toast.error('An unexpected error occurred', { position: 'top-center', duration: 2000 });
+  }
+}
 
-
-    }
    console.log(values)
   }
 
