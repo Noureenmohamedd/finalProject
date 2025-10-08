@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
 
     async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
-        // Cast if you’re storing extra fields
+       
         const u = user as unknown as Record<string, unknown>;
         token.user = u.user;
         token.token = u.token;

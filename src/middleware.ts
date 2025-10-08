@@ -3,7 +3,9 @@ import { NextResponse, NextRequest } from 'next/server'
  
 export async function middleware(request: NextRequest) {
 
-   const token = await getToken({req:request})
+    const cookieName = process.env.Node_ENV == 'production'?"_Secure-next-auth.session-token":"next-auth.session-token"
+
+   const token = await getToken({req:request , cookieName})
    const {pathname} =request.nextUrl 
 
    const authpage =[ "/login" , "/register"]
