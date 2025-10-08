@@ -3,7 +3,9 @@ import { NextResponse, NextRequest } from 'next/server'
  
 export async function middleware(request: NextRequest) {
 
-    const cookieName = process.env.Node_ENV == 'production'?"_Secure-next-auth.session-token":"next-auth.session-token"
+  const cookieName = process.env.NODE_ENV === 'production'
+  ? '__Secure-next-auth.session-token'
+  : 'next-auth.session-token'
 
    const token = await getToken({req:request , cookieName})
    const {pathname} =request.nextUrl 
@@ -27,5 +29,5 @@ export async function middleware(request: NextRequest) {
 }
  
 export const config = {
-  matcher: ["/" , "/allorders","/brands" ,"/payment" , "/categories" , "/cart" , "/productdetails" , "/products" , "/wishlist" , "/login" , "/register" ] 
+  matcher: [ "/allorders","/brands" ,"/payment" , "/categories" , "/cart" , "/productdetails" , "/products" , "/wishlist" , "/login" , "/register" ] 
 }
